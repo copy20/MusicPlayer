@@ -1,0 +1,19 @@
+# 第三方二进制按二进制处理，避免 git 进行文本 diff
+**/tools/ffmpeg/bin/*.exe binary
+**/tools/ffmpeg/bin/*.dll binary
+
+# 媒体文件
+*.mp4 binary
+*.mkv binary
+*.flac binary
+*.png binary
+*.jpg binary
+
+# 统一换行，避免 Windows/Linux 混合开发时的全文件 diff
+* text=auto
+*.ps1 text
+*.py text eol=lf
+*.cpp text
+*.h text
+*.md text
+*.txt text

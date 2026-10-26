@@ -1,0 +1,57 @@
+# ============================================================
+# MusicPlayer 仓库忽略规则
+# 说明：本仓库需要提交 tools/ffmpeg/bin/ffmpeg.exe（约 77MB），
+#      所以下面所有规则都刻意不包含 *.exe / *.dll。
+# ============================================================
+
+# ---------- C++ / CMake 构建产物 ----------
+c++/build/
+build/
+out/
+**/CMakeFiles/
+**/CMakeCache.txt
+**/cmake_install.cmake
+**/*.obj
+**/*.tlog
+**/*.pdb
+**/*.ilk
+**/*.exp
+**/*.idb
+**/*.ipdb
+**/*.res
+**/*.log
+
+# ---------- Visual Studio / IDE ----------
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.VC.db
+*.VC.VC.opendb
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------- 系统与临时文件 ----------
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
+
+# ---------- 根目录个人素材（如需提交演示视频，删除下面这一行） ----------
+/13.mp4
+
+# ---------- 明确保留：ffmpeg 可执行文件需要进仓库 ----------
+!**/tools/ffmpeg/bin/ffmpeg.exe

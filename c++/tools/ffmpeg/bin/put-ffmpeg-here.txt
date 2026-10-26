@@ -1,0 +1,19 @@
+把「完整版」ffmpeg.exe 放到这个目录里，程序启动时就能自动识别（无需安装、无需开发库）。
+
+当前状态：已放置一份 ffmpeg 6.0 essentials（2026-10-23 从 gyan.dev 下载，约 81MB，
+atempo / h264 / aac / rawvideo / s16le 全部可用）。要换版本，直接覆盖 ffmpeg.exe 即可。
+
+要点：
+  * 必须是完整构建。有些便携包是 --disable-everything 编出来的极简版：
+    能解析流头、却没有音频解码器，也没有 rawvideo/s16le 输出 —— 这种会被
+    本程序的能力探测识别出来并自动退回内置合成源（菜单「帮助 -> 后端信息」可查看）。
+  * 只放 ffmpeg.exe 就够了；不需要 ffprobe.exe、不需要 dll（静态构建最好）。
+  * 也可以放上一层目录：  c++/tools/ffmpeg.exe
+  * 或者设置环境变量：    FFMPEG=D:\path\to\ffmpeg.exe
+  * 检查它是否完整：
+        ffmpeg.exe -hide_banner -filters | findstr atempo          (有输出 => 支持保音变速)
+        ffmpeg.exe -hide_banner -muxers | findstr rawvideo         (有输出 => 支持子进程解码)
+
+程序实际走的是这两条命令（可自行验证）：
+    ffmpeg -ss 12 -i movie.mp4 -map 0:0 -an -sn -dn -f rawvideo -pix_fmt rgb24 -vsync 0 -
+    ffmpeg -ss 12 -i movie.mp4 -map 0:1 -vn -sn -dn -acodec pcm_s16le -ar 48000 -ac 2 -f s16le -

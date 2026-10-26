@@ -1,0 +1,12 @@
+把 ffmpeg.exe / ffprobe.exe 放在本目录（tools/ffmpeg/bin/），程序启动时会自动识别。
+
+识别顺序（见 app/core/backends/ffmpeg_cli.py 的 locate_executable）：
+  1. 环境变量 FFMPEG / FFPROBE
+  2. python/tools/ffmpeg/bin/ffmpeg.exe   <-- 这里
+  3. PATH 里的 ffmpeg
+
+放进来之后无需改任何代码，重启程序即可；用菜单「帮助 -> 关于 / 后端信息」
+可以看到后端是否已经变成 "FFmpeg (子进程)"。变成 FFmpeg 后端后：
+  1. 可以播放真实视频文件（拖进窗口即可）
+  2. 变速播放会自动升级为 ffmpeg 的 atempo 滤镜实现（保音调、质量最好）
+  3. seek 使用 ffmpeg 的 -ss 快速定位
